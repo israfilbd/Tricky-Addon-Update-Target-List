@@ -118,12 +118,24 @@ release_note() {
 }
 
 set_security_patch() {
-    # Find pif.json
-    [ -f "/data/adb/modules/playintegrityfix/pif.json" ] && PIF="/data/adb/modules/playintegrityfix/pif.json"
-    [ -f "/data/adb/pif.json" ] && PIF="/data/adb/pif.json"
-    [ -f "/data/adb/modules/playintegrityfix/custom.pif.json" ] && PIF="/data/adb/modules/playintegrityfix/custom.pif.json"
-    
-    security_patch=$(grep '"SECURITY_PATCH"' "$PIF" | sed 's/.*: "//; s/".*//')
+    # Look for security patch from PIF
+    if [ -f "/data/adb/modules/playintegrityfix/pif.json" ]; then
+        PIF="/data/adb/modules/playintegrityfix/pif.json"
+        [ -f "/data/adb/pif.json" ] && PIF="/data/adb/pif.json"
+    elif [ -f "/data/adb/modules/playintegrityfix/pif.prop" ]; then
+        PIF="/data/adb/modules/playintegrityfix/pif.prop"
+        [ -f "/data/adb/pif.prop" ] && PIF="/data/adb/pif.prop"
+    elif [ -f "/data/adb/modules/playintegrityfix/custom.pif.json" ]; then
+        PIF="/data/adb/modules/playintegrityfix/custom.pif.json"
+    fi
+
+    if [ -n "$PIF" ]; then
+        if echo "$PIF" | grep -q "prop"; then
+            security_patch=$(grep 'SECURITY_PATCH' "$PIF" | cut -d'=' -f2 | tr -d '\n')
+        else
+            security_patch=$(grep '"SECURITY_PATCH"' "$PIF" | sed 's/.*: "//; s/".*//')
+        fi
+    fi
     [ -z "$security_patch" ] && security_patch=$(getprop ro.build.version.security_patch) # Fallback
 
     formatted_security_patch=$(echo "$security_patch" | sed 's/-//g')
