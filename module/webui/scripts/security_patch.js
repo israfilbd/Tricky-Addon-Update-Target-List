@@ -1,5 +1,6 @@
 import { exec, spawn } from './assets/kernelsu.js';
 import { basePath, showPrompt } from './main.js';
+import { translations } from './language.js';
 
 let jamesFork = false;
 
@@ -9,16 +10,30 @@ const advancedToggleElement = document.querySelector('.advanced-toggle');
 const advancedToggle = document.getElementById('advanced-mode');
 const normalInputs = document.getElementById('normal-mode-inputs');
 const advancedInputs = document.getElementById('advanced-mode-inputs');
-const jamesInputs = document.getElementById('james-mode-inputs');
+const devconfigInputs = document.getElementById('devconfig-mode-inputs');
 const allPatchInput = document.getElementById('all-patch');
 const bootPatchInput = document.getElementById('boot-patch');
 const systemPatchInput = document.getElementById('system-patch');
 const vendorPatchInput = document.getElementById('vendor-patch');
-const jamesPatchInput = document.getElementById('james-patch');
-const jamesOsInput = document.getElementById('james-os');
+const devconfigPatchInput = document.getElementById('devconfig-securityPatch');
 const getButton = document.getElementById('get-patch');
 const autoButton = document.getElementById('auto-config');
 const saveButton = document.getElementById('save-patch');
+
+// Configurable options in james' fork
+const devconfigOption = [
+    'securityPatch',
+    'osVersion',
+    'brand',
+    'device',
+    'product',
+    'manufacturer',
+    'model',
+    'serial',
+    'meid',
+    'imei',
+    'imei2'
+];
 
 // Hide security patch dialog
 const hideSecurityPatchDialog = () => {
@@ -32,7 +47,8 @@ const hideSecurityPatchDialog = () => {
 
 /**
  * Save the security patch configuration to file
- * @param {string} mode - 'disable', 'manual'
+ * @param {string} mode - 'disable',
+'manual'
  * @param {string} value - The security patch value to save, if mode is 'manual'.
  */
 function handleSecurityPatch(mode, value = null) {
@@ -69,13 +85,14 @@ async function loadCurrentConfig() {
             if (stdout.trim() !== '') {
                 const lines = stdout.split('\n');
                 for (const line of lines) {
-                    if (line.startsWith('securityPatch =')) {
-                        const jamesPatchValue = line.split('=')[1].trim().replace(/"/g, '');
-                        if (jamesPatchValue !== '') jamesPatchInput.value = jamesPatchValue;
-                    }
-                    if (line.startsWith('osVersion =')) {
-                        const jamesOsVersionValue = line.split('=')[1].trim().replace(/"/g, '');
-                        if (jamesOsVersionValue !== '') jamesOsInput.value = jamesOsVersionValue;
+                    for (const option of devconfigOption) {
+                        if (line.startsWith(`${option} =`)) {
+                            const value = line.split('=')[1].trim().replace(/"/g, '');
+                            document.getElementById(`devconfig-${option}`).value = value;
+                        }
+                        if (!stdout.includes(option)) {
+                            document.getElementById(`devconfig-${option}`).value = '';
+                        }
                     }
                 }
             }
@@ -222,9 +239,10 @@ export function securityPatch() {
         .then(({ errno }) => {
             if (errno === 0) {
                 jamesFork = true;
+                document.getElementById('security-patch').textContent = translations.menu_set_devconfig;
                 advancedToggleElement.style.display = 'none';
                 normalInputs.classList.add('hidden');
-                jamesInputs.classList.remove('hidden');
+                devconfigInputs.classList.remove('hidden');
             }
         });
     document.getElementById("security-patch").addEventListener("click", () => {
@@ -282,19 +300,45 @@ export function securityPatch() {
     // Save button
     saveButton.addEventListener('click', async () => {
         if (jamesFork) {
-            const securityPatchValue = jamesPatchInput.value.trim();
-            const osVersionValue = jamesOsInput.value.trim();
+            const devconfig = new Map();
+            for (const option of devconfigOption) {
+                const input = document.getElementById(`devconfig-${option}`);
+                if (input.value.trim() === '') continue;
+                devconfig.set(option, input.value.trim());
+            }
 
-            if (!securityPatchValue) handleSecurityPatch('disable');
-            if (!securityPatchValue && !osVersionValue) {
+            if (devconfig.size === 0) {
+                handleSecurityPatch('disable');
                 hideSecurityPatchDialog();
                 return;
             }
 
-            const config = [
-                securityPatchValue ? `securityPatch = \\"${securityPatchValue}\\"` : '',
-                osVersionValue ? `osVersion = ${osVersionValue}` : ''
-            ].filter(Boolean).join('\n');
+            if (!devconfig.has('securityPatch')) {
+                exec('rm -f /data/adb/tricky_store/security_patch_auto_config || true');
+            }
+
+            // Separate top-level and deviceProps
+            const topLevelKeys = ['securityPatch', 'osVersion'];
+            const topLevel = [];
+            const deviceProps = [];
+
+            for (const [key, value] of devconfig.entries()) {
+                if (topLevelKeys.includes(key)) {
+                    if (key === 'osVersion') {
+                        topLevel.push(`${key} = ${value}`);
+                    } else {
+                        topLevel.push(`${key} = \\"${value}\\"`);
+                    }
+                } else {
+                    deviceProps.push(`${key} = \\"${value}\\"`);
+                }
+            }
+
+            let config = topLevel.join('\n');
+            if (deviceProps.length > 0) {
+                config += `\n[deviceProps]\n` + deviceProps.join('\n');
+            }
+
             handleSecurityPatch('manual', config);
         } else if (!advancedToggle.checked) {
             // Normal mode validation
@@ -356,6 +400,7 @@ export function securityPatch() {
                 allPatchInput.value = '';
             }
         }
+        overlayContent.scrollTop = 0;
         hideSecurityPatchDialog();
         loadCurrentConfig();
     });
@@ -373,7 +418,7 @@ export function securityPatch() {
             systemPatchInput.value = 'prop';
             bootPatchInput.value = data;
             vendorPatchInput.value = data;
-            jamesPatchInput.value = data;
+            devconfigPatchInput.value = data;
         });
         output.stderr.on('data', (data) => {
             if (data.includes("failed")) {

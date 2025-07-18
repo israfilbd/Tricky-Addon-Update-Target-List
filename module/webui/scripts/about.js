@@ -1,6 +1,5 @@
 import { linkRedirect, basePath, showPrompt } from './main.js';
-import { translations } from './language.js';
-import { spawn, toast } from './assets/kernelsu.js';
+import { spawn } from './assets/kernelsu.js';
 
 const aboutOverlay = document.getElementById('about-overlay');
 const aboutContent = document.querySelector('.about-menu');

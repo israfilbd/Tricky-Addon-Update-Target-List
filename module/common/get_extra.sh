@@ -143,19 +143,23 @@ set_security_patch() {
     TODAY=$(date +%Y%m%d)
     if [ -n "$formatted_security_patch" ] && [ "$TODAY" -lt "$security_patch_after_1y" ]; then
         TS_version=$(grep "versionCode=" "/data/adb/modules/tricky_store/module.prop" | cut -d'=' -f2)
-        # Official TrickyStore which supports custom security patch
-        if [ "$TS_version" -ge 158 ]; then
-            SECURITY_PATCH_FILE="/data/adb/tricky_store/security_patch.txt"
-            printf "system=prop\nboot=%s\nvendor=%s\n" "$security_patch" "$security_patch" > "$SECURITY_PATCH_FILE"
-            chmod 644 "$SECURITY_PATCH_FILE"
         # James Clef's TrickyStore fork (GitHub@qwq233/TrickyStore)
-        elif grep -q "James" "/data/adb/modules/tricky_store/module.prop"; then
+        if grep -q "James" "/data/adb/modules/tricky_store/module.prop"; then
             SECURITY_PATCH_FILE="/data/adb/tricky_store/devconfig.toml"
             if grep -q "^securityPatch" "$SECURITY_PATCH_FILE"; then
                 sed -i "s/^securityPatch .*/securityPatch = \"$security_patch\"/" "$SECURITY_PATCH_FILE"
             else
-                echo "securityPatch = \"$security_patch\"" >> "$SECURITY_PATCH_FILE"
+                if ! grep -q "^\\[deviceProps\\]" "$SECURITY_PATCH_FILE"; then
+                    echo "securityPatch = \"$security_patch\"" >> "$SECURITY_PATCH_FILE"
+                else
+                    sed -i "s/^\[deviceProps\]/securityPatch = \"$security_patch\"\n&/" "$SECURITY_PATCH_FILE"
+                fi
             fi
+        # Official TrickyStore which supports custom security patch
+        elif [ "$TS_version" -ge 158 ]; then
+            SECURITY_PATCH_FILE="/data/adb/tricky_store/security_patch.txt"
+            printf "system=prop\nboot=%s\nvendor=%s\n" "$security_patch" "$security_patch" > "$SECURITY_PATCH_FILE"
+            chmod 644 "$SECURITY_PATCH_FILE"
         # Other
         else
             resetprop ro.vendor.build.security_patch "$security_patch"

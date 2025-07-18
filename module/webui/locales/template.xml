@@ -52,6 +52,7 @@
     <string name="menu_set_custom_keybox">Set Custom Keybox</string>
     <string name="menu_set_verified_boot_hash">Set Verified Boot Hash</string>
     <string name="menu_set_security_patch">Set Security Patch</string>
+    <string name="menu_set_devconfig">Set DevConfig</string>
     <string name="menu_about">About</string>
     <!-- Boot Hash -->
     <string name="boot_hash_title">Boot Hash</string>
