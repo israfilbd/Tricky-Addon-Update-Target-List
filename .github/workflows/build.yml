@@ -11,6 +11,9 @@ on:
       - 'module/**'
   workflow_dispatch:
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   build:
     name: build
@@ -46,7 +49,7 @@ jobs:
           curl -Ls https://cdn.jsdelivr.net/npm/marked/marked.min.js > module/webui/scripts/assets/marked.min.js
 
           # OpenSSL
-          wget -q $(curl -Ls https://api.github.com/repos/KOWX712/openssl-static-build/releases/latest | jq -r '.assets[].browser_download_url') -O openssl.tar.gz
+          gh release download -R KOWX712/openssl-static-build -p "*.tar.gz" -O openssl.tar.gz
           tar -xzf openssl.tar.gz
           mv openssl-arm64 module/bin/arm64-v8a/openssl
           mv openssl-arm32 module/bin/armeabi-v7a/openssl
