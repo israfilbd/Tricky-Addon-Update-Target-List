@@ -3,7 +3,7 @@
 ## Update Existing Language
 
 - Update translation in [Crowdin](https://crowdin.com/project/TA_utl).
-- Add your name to [translation contibutor list](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/module/webui/locales/GUIDE.md) (Issue/Pull Request).
+- Add your name to [translation contibutor list](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/module/webui/locales/CONTRIBUTOR.md) (Issue/Pull Request).
 
 ---
 
