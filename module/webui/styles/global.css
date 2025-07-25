@@ -111,6 +111,11 @@ body {
     user-select: none;
 }
 
+[dir="rtl"] .close-btn {
+    right: unset;
+    left: 12px;
+}
+
 .prompt {
     position: fixed;
     bottom: 0;

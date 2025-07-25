@@ -79,6 +79,11 @@
     }
 }
 
+[dir="rtl"] .file-item svg {
+    margin-right: unset;
+    margin-left: 10px;
+}
+
 .file-item span {
     flex-grow: 1;
     overflow: hidden;

@@ -72,6 +72,11 @@
     }
 }
 
+[dir="rtl"] .link-icon svg {
+    padding-right: unset;
+    padding-left: 3px;
+}
+
 #telegram {
     background-color: #38A7ED;
 }

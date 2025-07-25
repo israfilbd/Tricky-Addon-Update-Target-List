@@ -101,23 +101,8 @@ export async function loadTranslations() {
 
         // Support for rtl language
         const isRTL = rtlLang.includes(lang.split('-')[0]);
-        if (isRTL) {
-            document.documentElement.setAttribute('dir', 'rtl');
-            document.documentElement.setAttribute('lang', lang);
-            
-            // Load extra rtl css
-            fetch('styles/rtl_styles.css')
-                .then(res => res.text())
-                .then(css => {
-                    const style = document.createElement('style');
-                    style.textContent = css;
-                    document.head.appendChild(style);
-                });
-        } else {
-            document.documentElement.setAttribute('dir', 'ltr');
-            document.documentElement.setAttribute('lang', lang);
-        }
-
+        document.documentElement.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+ 
         // Generate language menu
         await generateLanguageMenu();
     } catch (error) {

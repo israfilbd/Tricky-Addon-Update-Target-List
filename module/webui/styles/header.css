@@ -26,6 +26,12 @@
     font-weight: bold;
 }
 
+[dir="rtl"] #module-version,
+[dir="rtl"] #title {
+    padding-left: unset;
+    padding-right: 5px;
+}
+
 .no-connection {
     height: 100%;
     display: flex;
@@ -43,6 +49,11 @@
     margin-left: auto;
     position: relative;
     display: inline-block;
+}
+
+[dir="rtl"] .language-dropdown {
+    margin-left: unset;
+    margin-right: auto;
 }
 
 .language-button {
@@ -74,6 +85,12 @@
     transform: translateY(-30px) scale(0);
     transform-origin: top right;
     transition: all 0.2s ease;
+}
+
+[dir="rtl"] .language-menu {
+    right: unset;
+    left: 5px;
+    transform-origin: top left;
 }
 
 .language-menu.show {

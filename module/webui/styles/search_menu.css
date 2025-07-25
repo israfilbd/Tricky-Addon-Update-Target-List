@@ -26,11 +26,21 @@
     position: absolute;
 }
 
+[dir="rtl"] .search-card {
+    left: unset;
+    right: 0;
+}
+
 .search-icon {
     position: absolute;
     padding-top: 5px;
     left: 15px;
     z-index: 1000;
+}
+
+[dir="rtl"] .search-icon {
+    left: unset;
+    right: 15px;
 }
 
 .search-input {
@@ -63,6 +73,11 @@
     right: 0;
     position: absolute;
     height: 100%;
+}
+
+[dir="rtl"] .menu {
+    right: unset;
+    left: 0;
 }
 
 .menu-toggle {
@@ -111,6 +126,12 @@
     transform: translateX(120%);
     transition: all 0.2s ease;
     user-select: none;
+}
+
+[dir="rtl"] .menu-options {
+    right: unset;
+    left: 0;
+    transform: translateX(-120%);
 }
 
 #select-denylist,
