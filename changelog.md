@@ -8,6 +8,15 @@ GitHub release: [Tricky Addon: Update Target List](https://github.com/KOWX712/Tr
 Telegram channel: [KOW's Little World](https://t.me/kowchannel)
 
 ## Changelog
+### v4.1
+- **WebUI:** Added right-to-left language support in UI.
+- **WebUI:** Fixed 'Failed to fetch applist' in certain condition.
+- **Script:** Added auto security patch support for pif.prop.
+- **WebUI:** Added support for Dakkshesh's TrickyStore fork [(GitHub@beakthoven/TrickyStore)](https://github.com/beakthoven/TrickyStore).
+- **WebUI:** Added device props support for qwq233's TrickyStore fork (this will not modify system prop automatically).
+- **WebUI:** Added German (#78, @xxOrdulu52xx), Bengali, Persian translation.
+- **WebUI:** Updated Turkish, Italian, Japanese, Arabic translation. (@cvnertnc, @GRgabrix, @reindex-ot, @ZG089)
+
 ### v4.0
 - **WebUI:** Fixed `Failed to fetch security patch` issue in most condition.
 - **WebUI:** Added support for [qwq233's TrickyStore fork](https://github.com/qwq233/TrickyStore).
