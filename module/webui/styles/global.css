@@ -6,36 +6,40 @@
     --bottom-inset: var(--window-inset-bottom, 0px);
 
     /* Background colors */
-    --bg-primary: var(--background, #F5F5F5);
-    --bg-secondary: var(--tonalSurface, #fff);
-    --bg-input: var(--surfaceBright, #F5F5F5);
+    --bg-primary: var(--background, #fbf8ff);
+    --bg-secondary: var(--tonalSurface, #f3f0f9);
+    --bg-input: var(--surfaceBright, #fbf8ff);
 
     /* Text colors */
-    --text-primary: var(--onSurface, #000);
+    --text-primary: var(--onSurface, #1b1b21);
     --text-secondary: var(--onSurfaceVariant, #757575);
 
     /* Border colors */
-    --border-color: var(--outlineVariant, #ccc);
+    --border-color: var(--outlineVariant, #c7c5d0);
 
     /* Button colors */
-    --btn-primary: var(--primary, #007bff);
+    --btn-primary: var(--primary, #565992);
     --btn-primary-text: var(--onPrimary, #fff);
-    --btn-uninstall: var(--error, #FF3636);
+    --btn-uninstall: #f26767;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         /* Background colors */
-        --bg-primary: var(--background, #151515);
-        --bg-secondary: var(--tonalSurface, #292929);
-        --bg-input: var(--surfaceBright, #1b1b1b);
+        --bg-primary: var(--background, #131318);
+        --bg-secondary: var(--tonalSurface, #1c1c24);
+        --bg-input: var(--surfaceBright, #2c2c30);
 
         /* Text colors */
-        --text-primary: var(--onSurface, #fff);
+        --text-primary: var(--onSurface, #e4e1e9);
         --text-secondary: var(--onSurfaceVariant, #C2C2C2);
 
         /* Border colors */
-        --border-color: var(--outlineVariant, #636363);
+        --border-color: var(--outlineVariant, #46464f);
+
+        /* Button colors */
+        --btn-primary: var(--primary, #bfc2ff);
+        --btn-primary-text: var(--onPrimary, #272b60);
     }
 }
 
