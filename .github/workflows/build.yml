@@ -22,7 +22,7 @@ jobs:
       version_tag_exists: ${{ steps.check_tag.outputs.version_tag_exists }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           fetch-tags: true
@@ -46,7 +46,7 @@ jobs:
         if: github.event_name != 'pull_request'
         run: |
           # marked.js
-          curl -Ls https://cdn.jsdelivr.net/npm/marked/marked.min.js > module/webui/scripts/assets/marked.min.js
+          curl -LSs https://cdn.jsdelivr.net/npm/marked/marked.min.js > module/webui/scripts/assets/marked.min.js || echo "Failed to download marked.min.js"
 
           # OpenSSL
           gh release download -R KOWX712/openssl-static-build -p "*.tar.gz" -O openssl.tar.gz
@@ -115,7 +115,7 @@ jobs:
     if: ${{ needs.build.outputs.version_tag_exists == 'false' && github.event_name != 'pull_request' }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
