@@ -1,4 +1,4 @@
-import { exec, spawn, toast } from './assets/kernelsu.js';
+import { exec, spawn, toast, listPackages, getPackagesInfo, getPackagesIcon } from './assets/kernelsu.js';
 import { basePath, loadingIndicator, hideFloatingBtn, appsWithExclamation, appsWithQuestion, applyRippleEffect } from './main.js';
 
 const appTemplate = document.getElementById('app-template').content;
@@ -48,30 +48,41 @@ export async function fetchAppList() {
 
     // Get installed packages
     let appEntries = [], installedPackages = [];
-    const output = spawn('sh', [`${basePath}/common/get_extra.sh`, '--applist'], { cwd: "/data/local/tmp" });
-    output.stdout.on('data', (data) => {
-        if (data.trim() === "") return;
-        installedPackages.push(data);
+    const systemApp = await exec('cat "/data/adb/tricky_store/system_app" || true');
+
+    const [userPkgs, systemPkgs] = await Promise.all([
+        listPackages('user'),
+        listPackages('system')
+    ]);
+
+        installedPackages.push(...userPkgs);
+        systemApp.stdout.split('\n').forEach((pkg) => {
+        if (pkg && systemPkgs.includes(pkg)) {
+            installedPackages.push(pkg);
+        }
     });
-    output.stderr.on('data', (data) => {
-        console.error("Error fetching applist: ", data);
-    });
-    output.on('exit', async () => {
-        // Create appEntries array contain { appName, packageName }
-        appEntries = await Promise.all(installedPackages.map(async (packageName) => {
-            if (appNameMap[packageName] && appNameMap[packageName].trim() !== '') {
-                return {
-                    appName: appNameMap[packageName].trim(),
-                    packageName
-                };
-            }
-            if (typeof ksu.getPackagesInfo === 'function') {
-                const info = JSON.parse(ksu.getPackagesInfo(`[${packageName}]`));
-                return {
-                    appName: info[0].appLabel,
-                    packageName
-                }
-            }
+
+    installedPackages = Array.from(new Set(installedPackages));
+
+    // Create appEntries array contain { appName, packageName }
+    appEntries = await Promise.all(installedPackages.map(async (packageName) => {
+        // Look from cached result
+        if (appNameMap[packageName] && appNameMap[packageName].trim() !== '') {
+            return {
+                appName: appNameMap[packageName].trim(),
+                packageName
+            };
+        }
+
+        try {
+            // KernelSU-Next package manager API
+            const info = await getPackagesInfo(packageName);
+            return {
+                appName: info.appLabel,
+                packageName
+            };
+        } catch (error) {
+            // WebUI-X package manager API
             if (typeof $packageManager !== 'undefined') {
                 const info = $packageManager.getApplicationInfo(packageName, 0, 0);
                 return {
@@ -79,6 +90,7 @@ export async function fetchAppList() {
                     packageName
                 };
             }
+            // Fallback with aapt
             return new Promise((resolve) => {
                 const output = spawn('sh', [`${basePath}/common/get_extra.sh`, '--appname', packageName],
                                 { env: { PATH: `$PATH:${basePath}/common:/data/data/com.termux/files/usr/bin` } });
@@ -89,9 +101,9 @@ export async function fetchAppList() {
                     });
                 });
             });
-        }));
-        renderAppList(appEntries);
-    });
+        }
+    }));
+    renderAppList(appEntries);
 }
 
 /**
@@ -218,12 +230,15 @@ function loadIcons(packageName) {
         loader.style.display = 'none';
         imgElement.style.opacity = '1';
     } else if (typeof ksu.getPackagesIcons === 'function') {
-        const app = JSON.parse(ksu.getPackagesIcons(`[${packageName}]`, 100));
-        console.log(app);
-        iconCache.set(packageName, app[0].icon);
-        imgElement.src = app[0].icon;
-        loader.style.display = 'none';
-        imgElement.style.opacity = '1';
+        getPackagesIcon(packageName, 100).then(app => {
+            iconCache.set(packageName, app.icon);
+            imgElement.src = app.icon;
+            loader.style.display = 'none';
+            imgElement.style.opacity = '1';
+        }).catch(error => {
+            console.error('Failed to load icon:', error);
+            loader.style.display = 'none';
+        });
     } else if (typeof $packageManager !== 'undefined') {
         const stream = $packageManager.getApplicationIcon(packageName, 0, 0);
         wrapInputStream(stream)
