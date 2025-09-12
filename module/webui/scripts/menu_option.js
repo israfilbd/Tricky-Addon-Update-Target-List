@@ -245,7 +245,7 @@ async function fetchkb(link, fallbackLink) {
 // unkown kb eventlistener
 document.getElementById("devicekb").addEventListener("click", async () => {
     const output = spawn("sh", [`${basePath}/common/get_extra.sh`, "--unknown-kb"],
-                    { cwd: "/data/local/tmp", env: { PATH: `$PATH:${basePath}/common`, OPENSSL_CONF: "/dev/null" }});
+                    { cwd: "/data/local/tmp", env: { PATH: `${basePath}/common/bin:$PATH` }});
     output.on('exit', (code) => {
         showPrompt(code === 0 ? "prompt_unknown_key_set" : "prompt_key_set_error", code === 0);
     });

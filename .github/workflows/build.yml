@@ -48,11 +48,9 @@ jobs:
           # marked.js
           curl -LSs https://cdn.jsdelivr.net/npm/marked/marked.min.js > module/webui/scripts/assets/marked.min.js || echo "Failed to download marked.min.js"
 
-          # OpenSSL
-          gh release download -R KOWX712/openssl-static-build -p "*.tar.gz" -O openssl.tar.gz
-          tar -xzf openssl.tar.gz
-          mv openssl-arm64 module/bin/arm64-v8a/openssl
-          mv openssl-arm32 module/bin/armeabi-v7a/openssl
+          # keygen
+          gh release download -R KOWX712/keygen -p "*.tar.gz" -O keygen.tar.gz
+          tar -xzf keygen.tar.gz -C module/bin
 
           # Commit if found changes
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -64,10 +62,10 @@ jobs:
             git commit -m "deps: update marked.min.js"
           fi
 
-          # Commit OpenSSL files if changed
-          if git status --porcelain | grep -E 'module/bin/arm64-v8a|module/bin/armeabi-v7a'; then
-            git add module/bin/arm64-v8a/openssl module/bin/armeabi-v7a/openssl
-            git commit -m "deps: update OpenSSL binaries"
+          # Commit binaries files if changed
+          if git status --porcelain | grep -q 'module/bin/'; then
+            git add module/bin/**
+            git commit -m "deps: update binaries"
           fi
 
           # Push all commits

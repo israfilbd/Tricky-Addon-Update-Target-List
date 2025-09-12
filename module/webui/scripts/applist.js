@@ -93,7 +93,7 @@ export async function fetchAppList() {
             // Fallback with aapt
             return new Promise((resolve) => {
                 const output = spawn('sh', [`${basePath}/common/get_extra.sh`, '--appname', packageName],
-                                { env: { PATH: `$PATH:${basePath}/common:/data/data/com.termux/files/usr/bin` } });
+                                { env: { PATH: `$PATH:${basePath}/common/bin:/data/data/com.termux/files/usr/bin` } });
                 output.stdout.on('data', (data) => {
                     resolve({
                         appName: data.trim() === '' ? packageName : data.trim(),

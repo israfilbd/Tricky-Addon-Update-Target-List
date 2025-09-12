@@ -1,10 +1,8 @@
 MODPATH=${0%/*}
-PATH=/data/adb/ap/bin:/data/adb/ksu/bin:/data/adb/magisk:$PATH
+PATH=$MODPATH/bin:/data/adb/ap/bin:/data/adb/ksu/bin:/data/adb/magisk:$PATH
 HIDE_DIR="/data/adb/modules/.TA_utl"
 TS="/data/adb/modules/tricky_store"
 TSPA="/data/adb/modules/tsupport-advance"
-
-aapt() { "$MODPATH/common/aapt" "$@"; }
 
 add_denylist_to_target() {
     exclamation_target=$(grep '!' "/data/adb/tricky_store/target.txt" | sed 's/!$//')

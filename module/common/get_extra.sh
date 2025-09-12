@@ -5,6 +5,7 @@
 MODPATH=${0%/*}
 SKIPLIST="$MODPATH/tmp/skiplist"
 XPOSED="$MODPATH/tmp/xposed"
+PATH=$MODPATH/bin:$PATH
 
 if [ "$MODPATH" = "/data/adb/modules/.TA_utl/common" ]; then
     MODDIR="/data/adb/modules/.TA_utl"
@@ -12,8 +13,6 @@ if [ "$MODPATH" = "/data/adb/modules/.TA_utl/common" ]; then
 else
     MODDIR="/data/adb/modules/TA_utl"
 fi
-
-aapt() { "$MODPATH/aapt" "$@"; }
 
 # probe for downloaders
 # wget = low pref, no ssl.
@@ -192,16 +191,13 @@ unknown_kb() {
     KEYBOX="keybox.xml"
 
     # gen ec_key
-    openssl ecparam -name prime256v1 -genkey -noout -out "$ECKEY" || exit 1
+    keygen gen_ec_key > "$ECKEY" || exit 1
 
     # gen cert
-    openssl req -new -x509 -key "$ECKEY" -out "$CERT" -days 3650 -subj "/CN=Generated" || exit 1
+    keygen gen_cert "$ECKEY" > "$CERT" || exit 1
 
     # gen rsa key
-    openssl genrsa -out "$RSAKEY" 2048 || exit 1
-
-    # convert rsa key to PKCS#1
-    openssl rsa -in "$RSAKEY" -out "$RSAKEY" -traditional || exit 1
+    keygen gen_rsa_key > "$RSAKEY" || exit 1
 
     # Generate keybox XML
     cat << KEYBOX_EOF > "$KEYBOX"
