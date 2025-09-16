@@ -1,5 +1,5 @@
 MODPATH=${0%/*}
-PATH=$MODPATH/bin:/data/adb/ap/bin:/data/adb/ksu/bin:/data/adb/magisk:$PATH
+PATH=$MODPATH/common/bin:/data/adb/ap/bin:/data/adb/ksu/bin:/data/adb/magisk:$PATH
 HIDE_DIR="/data/adb/modules/.TA_utl"
 TS="/data/adb/modules/tricky_store"
 TSPA="/data/adb/modules/tsupport-advance"
