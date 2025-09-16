@@ -238,6 +238,7 @@
     width: 3em;
     margin-right: 10px;
     position: relative;
+    pointer-events: none;
 }
 
 [dir="rtl"] .app-icon-container {
