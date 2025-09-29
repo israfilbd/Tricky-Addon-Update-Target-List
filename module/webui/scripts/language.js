@@ -184,14 +184,15 @@ export function setupLanguageMenu() {
  * @returns {Promise<void>}
  */
 async function generateLanguageMenu() {
-    languageMenu.innerHTML = '';
+    const languageList = languageMenu.querySelector('.language-list');
+    languageList.innerHTML = '';
     
     // Add System Default option
     const defaultButton = document.createElement('button');
     defaultButton.classList.add('language-option', 'ripple-element');
     defaultButton.setAttribute('data-lang', 'default');
     defaultButton.setAttribute('data-i18n', 'system_default');
-    languageMenu.appendChild(defaultButton);
+    languageList.appendChild(defaultButton);
 
     // Create and sort language entries
     const sortedLanguages = Object.entries(languageNames)
@@ -204,7 +205,7 @@ async function generateLanguageMenu() {
         button.classList.add('language-option', 'ripple-element');
         button.setAttribute('data-lang', lang);
         button.textContent = name;
-        languageMenu.appendChild(button);
+        languageList.appendChild(button);
     });
 
     // Add translation guide button
@@ -212,5 +213,5 @@ async function generateLanguageMenu() {
     moreBtn.classList.add('language-option', 'ripple-element');
     moreBtn.textContent = translations.more_language;
     moreBtn.onclick = () => linkRedirect('https://github.com/KOWX712/Tricky-Addon-Update-Target-List/blob/main/module/webui/locales/GUIDE.md');
-    languageMenu.appendChild(moreBtn);
+    languageList.appendChild(moreBtn);
 }
