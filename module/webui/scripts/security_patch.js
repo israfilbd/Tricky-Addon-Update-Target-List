@@ -86,7 +86,7 @@ async function loadCurrentConfig() {
                 const lines = stdout.split('\n');
                 for (const line of lines) {
                     for (const option of devconfigOption) {
-                        if (line.startsWith(`${option} =`)) {
+                        if (line.trim().startsWith(`${option} =`)) {
                             const value = line.split('=')[1].trim().replace(/"/g, '');
                             document.getElementById(`devconfig-${option}`).value = value;
                         }
