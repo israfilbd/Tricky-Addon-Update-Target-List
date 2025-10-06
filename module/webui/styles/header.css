@@ -1,3 +1,5 @@
+@import './theme.css';
+
 .header {
     display: flex;
     align-items: center;

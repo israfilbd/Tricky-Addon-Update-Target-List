@@ -1,3 +1,5 @@
+@import './theme.css';
+
 .add-system-app-overlay {
     z-index: 2000;
 }
