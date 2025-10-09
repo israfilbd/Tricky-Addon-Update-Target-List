@@ -37,6 +37,7 @@
     <!-- Functional Button -->
     <string name="functional_button_save_and_update_button">Save</string>
     <string name="functional_button_uninstall_webui">Uninstall WebUI</string>
+    <string name="functional_button_close">Close</string>
     <!-- Loading -->
     <string name="loading_loading">Loading...</string>
     <!-- Menu -->
@@ -129,6 +130,6 @@
     <!-- Mode dialog -->
     <string name="mode_dialog_title">Mode</string>
     <string name="mode_auto">Auto</string>
-    <string name="mode_certificate_generate">Cert Generate (!)</string>
+    <string name="mode_certificate_generating">Cert Generating (!)</string>
     <string name="mode_leaf_hack">Leaf Hack (?)</string>
 </resources>

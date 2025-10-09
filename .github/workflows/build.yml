@@ -30,24 +30,21 @@ jobs:
       - name: Update translation template
         run: |
           # Translation template
-          cp -f module/webui/locales/strings/en.xml module/webui/locales/template.xml
+          cp -f webui/public/locales/strings/en.xml webui/public/locales/template.xml
 
           # Commit if found changes
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
           # Force push translation template if changed
-          if git status --porcelain | grep 'module/webui/locales/template.xml'; then
-            git add module/webui/locales/template.xml
+          if git status --porcelain | grep 'webui/public/locales/template.xml'; then
+            git add webui/public/locales/template.xml
             git commit --amend --no-edit
           fi
 
       - name: Update dependency
         if: github.event_name != 'pull_request'
         run: |
-          # marked.js
-          curl -LSs https://cdn.jsdelivr.net/npm/marked/marked.min.js > module/webui/scripts/assets/marked.min.js || echo "Failed to download marked.min.js"
-
           # keygen
           gh release download -R KOWX712/keygen -p "*.tar.gz" -O keygen.tar.gz
           tar -xzf keygen.tar.gz -C module/bin
@@ -55,12 +52,6 @@ jobs:
           # Commit if found changes
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-
-          # Commit marked.min.js if changed
-          if git status --porcelain | grep 'module/webui/scripts/assets/marked.min.js'; then
-            git add module/webui/scripts/assets/marked.min.js
-            git commit -m "deps: update marked.min.js"
-          fi
 
           # Commit binaries files if changed
           if git status --porcelain | grep -q 'module/bin/'; then
@@ -70,6 +61,12 @@ jobs:
 
           # Push all commits
           git push --force
+
+      - name: Build WebUI
+        run: |
+          cd webui
+          npm ci
+          npm run build
 
       - name: Extract Module Info
         id: extract_info
@@ -155,6 +152,12 @@ jobs:
           git add update.json module/module.prop
           git commit --amend --no-edit
           git push --force
+
+      - name: Build WebUI
+        run: |
+          cd webui
+          npm ci
+          npm run build
 
       - name: Compress module folder
         run: |
