@@ -2,5 +2,5 @@
     "title": "Tricky Addon",
     "icon": "icon.png",
     "windowResize": false,
-    "exitConfirm": false
+    "backInterceptor": "javascript"
 }
