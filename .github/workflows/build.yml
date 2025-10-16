@@ -6,9 +6,12 @@ on:
       - main
     paths:
       - 'module/**'
+      - 'webui/**'
+      - '.github/workflows/**'
   pull_request:
     paths:
       - 'module/**'
+      - 'webui/**'
   workflow_dispatch:
 
 env:
