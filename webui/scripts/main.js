@@ -23,6 +23,8 @@ import { searchInput } from './search_menu.js';
 import { updateCheck, connection } from './update.js';
 import { securityPatch } from './security_patch.js';
 
+document.body.removeAttribute('unresolved');
+
 // Loading, Save and Prompt Elements
 export const loadingIndicator = document.querySelector('.loading');
 const prompt = document.getElementById('prompt');

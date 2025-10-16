@@ -13,6 +13,12 @@ body {
     padding-top: var(--top-inset);
     padding-bottom: var(--bottom-inset);
     margin: 0;
+    transition: opacity 0.2s;
+}
+
+body[unresolved] {
+    opacity: 0;
+    overflow: hidden;
 }
 
 .floating-btn {
