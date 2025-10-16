@@ -89,8 +89,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url(https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/webui/material-symbols-outlined.woff2) format('woff2'),
-         url(https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/main/webui/material-symbols-outlined.woff2) format('woff2');
+    src: url('/material-symbols-outlined.woff2') format('woff2');
 }
 
 .material-symbols-outlined {
