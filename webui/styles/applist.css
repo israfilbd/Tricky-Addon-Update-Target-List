@@ -18,7 +18,7 @@
     gap: 15px;
     background-color: var(--md-sys-color-surface-variant);
     color: var(--md-sys-color-on-surface-variant);
-    padding: 10px 15px;
+    padding: 16px;
     border-radius: 8px;
     box-sizing: border-box;
     margin: 0 auto;
@@ -57,14 +57,19 @@
 .card {
     border-radius: 8px;
     margin: 0 auto;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
     width: calc(100% - 32px);
     max-width: 900px;
-    padding: 10px 15px;
+    padding: 16px;
     box-sizing: border-box;
     background-color: var(--md-sys-color-surface-container);
+    transition: background-color 0.1s ease;
     position: relative;
     overflow: hidden;
+}
+
+.card.selected {
+    background-color: var(--md-sys-color-surface-container-high);
 }
 
 .content {
@@ -91,19 +96,31 @@
 
 .app-info {
     text-align: initial;
+    margin-right: 12px;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    gap: 4px;
     min-width: 0;
+}
+
+[dir="rtl"] .app-info {
+    margin-right: unset;
+    margin-left: 12px;
 }
 
 .app-icon-container {
     flex-shrink: 0;
-    height: 3em;
-    width: 3em;
-    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    margin-right: 12px;
     position: relative;
     pointer-events: none;
+}
+
+[dir="rtl"] .app-icon-container {
+    margin-right: unset;
+    margin-left: 12px;
 }
 
 .app-name,
@@ -117,16 +134,12 @@
 .app-name {
     display: inline;
     color: var(--md-sys-color-on-surface);
+    font-size: 1.1em;
 }
 
 .package-name {
     color: var(--md-sys-color-outline);
     font-size: 0.9em;
-}
-
-[dir="rtl"] .app-icon-container {
-    margin-right: unset;
-    margin-left: 10px;
 }
 
 .loader {

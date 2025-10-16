@@ -7,6 +7,7 @@ function toggleCheckboxes(shouldCheck) {
     document.querySelectorAll("md-checkbox").forEach(checkbox => {
         if (checkbox.closest(".card").style.display !== "none") {
             checkbox.checked = shouldCheck;
+            checkbox.closest(".card").classList.toggle('selected', shouldCheck);
         }
     });
 }
@@ -27,6 +28,7 @@ document.getElementById("select-denylist").onclick =  () => {
                     const packageName = app.getAttribute("data-package");
                     if (denylistApps.includes(packageName)) {
                         app.querySelector("md-checkbox").checked = true;
+                        app.classList.add('selected');
                     }
                 });
                 exec('touch "/data/adb/tricky_store/target_from_denylist"');
@@ -69,6 +71,7 @@ document.getElementById("deselect-unnecessary").onclick = async () => {
                     const packageName = app.getAttribute("data-package");
                     if (unnecessaryApps.includes(packageName)) {
                         app.querySelector("md-checkbox").checked = false;
+                        app.classList.remove('selected');
                     }
                 });
             });

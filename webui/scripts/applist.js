@@ -169,13 +169,16 @@ function renderAppList(data) {
                 <img class="app-icon" data-package="${packageName}" />
             </div>
             <div class="app-info">
-                <div class="app-name"><strong>${appName}</strong></div>
+                <div class="app-name">${appName}</div>
                 <div class="package-name">${packageName}</div>
             </div>
         `;
         const checkbox = appElement.querySelector("md-checkbox");
         checkbox.id = `checkbox-${packageName}`;
-        checkbox.checked = targetList.includes(packageName);
+        if (targetList.includes(packageName)) {
+            checkbox.checked = true;
+            appElement.querySelector('.card').classList.add('selected');
+        }
         appListContainer.appendChild(appElement);
         appendApps(index + 1);
     };
@@ -288,6 +291,7 @@ function toggleableCheckbox() {
         card.onclick = () => {
             if (menuOpen) return;
             checkbox.checked = !checkbox.checked;
+            card.classList.toggle('selected');
         };
     });
 
@@ -311,7 +315,7 @@ function setupModeMenu() {
     function openModeDialog(card) {
         currentCard = card;
         const packageName = card.getAttribute('data-package');
-        const appNameEl = card.querySelector('.app-name strong');
+        const appNameEl = card.querySelector('.app-name');
         const appName = appNameEl ? appNameEl.textContent : packageName;
         modeAppName.innerHTML = `${appName}<br>${packageName}`;
 

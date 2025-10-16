@@ -112,4 +112,5 @@ body[unresolved] {
     display: none;
     width: calc(100% - 32px);
     max-width: 900px;
+    margin-top: 8px;
 }
