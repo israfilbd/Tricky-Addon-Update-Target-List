@@ -5,23 +5,26 @@ const searchBtn = document.getElementById('search-button');
 const clearBtn = document.getElementById('clear-btn');
 const menuButton = document.getElementById('menu-button');
 const menuOptions = document.getElementById('menu-options');
-const searchBarBg = document.querySelector('.search-background');
 
 searchBtn.onclick = () => {
     searchInput.classList.add('show');
-    searchBarBg.classList.add('show');
     searchInput.focus();
 };
 
 searchInput.addEventListener('focus', () => {
     searchBtn.style.pointerEvents = 'none';
+    document.querySelectorAll('.search-bg').forEach(el => {
+        el.classList.add('hide');
+    });
 });
 
 searchInput.addEventListener('blur', () => {
     if (searchInput.value === '') {
         searchInput.classList.remove('show');
-        searchBarBg.classList.remove('show');
         searchBtn.style.pointerEvents = 'auto';
+        document.querySelectorAll('.search-bg').forEach(el => {
+            el.classList.remove('hide');
+        });
     }
 });
 
