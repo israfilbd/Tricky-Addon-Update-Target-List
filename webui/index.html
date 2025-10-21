@@ -68,7 +68,7 @@
     </div>
 
     <!-- Floating Button Element -->
-    <md-fab id="save" class="floating-btn hide" data-i18n="functional_button_save_and_update_button" label="Save">
+    <md-fab id="save" class="floating-btn hide" data-i18n="functional_button_save" label="Save">
         <md-icon slot="icon">edit_note</md-icon>
     </md-fab>
 
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div slot="actions">
-                <md-text-button id="mode-cancel" data-i18n="confirmation_uninstall_cancel"></md-text-button>
+                <md-text-button id="mode-cancel" data-i18n="functional_button_cancel"></md-text-button>
             </div>
         </md-dialog>
     </div>
@@ -125,7 +125,7 @@
             <div slot="headline" data-i18n="help_help_instructions"></div>
             <div slot="content" class="help-content">
                 <div class="instruction">
-                    <strong data-i18n="help_save_and_update"></strong>
+                    <strong data-i18n="functional_button_save"></strong>
                     <p data-i18n="help_save_and_update_description"></p>
                 </div>
                 <div class="instruction">
@@ -179,8 +179,8 @@
                 <md-outlined-text-field id="boot-hash-input" type="textarea" rows="4" placeholder="Paste your verified Boot Hash here" data-i18n="boot_hash_input_placeholder" oninput="window.trimInput(this)"></md-outlined-text-field>
             </div>
             <div slot="actions">
-                <md-text-button id="cancel-boot-hash" data-i18n="confirmation_uninstall_cancel"></md-text-button>
-                <md-filled-button id="boot-hash-save-button" data-i18n="boot_hash_save_button"></md-filled-button>
+                <md-text-button id="cancel-boot-hash" data-i18n="functional_button_cancel"></md-text-button>
+                <md-filled-button id="boot-hash-save-button" data-i18n="functional_button_save"></md-filled-button>
             </div>
         </md-dialog>
     </div>
@@ -246,7 +246,7 @@
                 <div class="file-list"></div>
             </div>
             <div slot="actions">
-                <md-text-button class="close-selector" data-i18n="confirmation_uninstall_cancel"></md-text-button>
+                <md-text-button class="close-selector" data-i18n="functional_button_cancel"></md-text-button>
             </div>
         </md-dialog>
     </div>
@@ -294,7 +294,7 @@
             <div class="security-patch-actions" slot="actions">
                 <md-outlined-button id="get-patch" data-i18n="security_patch_get_date"></md-outlined-button>
                 <md-outlined-button id="auto-config" data-i18n="security_patch_auto"></md-outlined-button>
-                <md-filled-button id="save-patch" data-i18n="security_patch_save"></md-filled-button>
+                <md-filled-button id="save-patch" data-i18n="functional_button_save"></md-filled-button>
             </div>
         </md-dialog>
     </div>
@@ -309,7 +309,7 @@
                 <div class="current-system-app-list-content"></div>
             </div>
             <div slot="actions">
-                <md-text-button id="cancel-add-system-app" data-i18n="confirmation_uninstall_cancel"></md-text-button>
+                <md-text-button id="cancel-add-system-app" data-i18n="functional_button_cancel"></md-text-button>
                 <md-filled-button id="add-system-app-button" data-i18n="add_system_app_add"></md-filled-button>
             </div>
         </md-dialog>
@@ -322,8 +322,8 @@
             <md-icon slot="icon">delete</md-icon>
             <div slot="content" data-i18n="confirmation_uninstall_message"></div>
             <div slot="actions">
-                <md-text-button id="cancel-uninstall" data-i18n="confirmation_uninstall_cancel"></md-text-button>
-                <md-filled-button id="confirm-uninstall" data-i18n="confirmation_uninstall_confirm"></md-filled-button>
+                <md-text-button id="cancel-uninstall" data-i18n="functional_button_cancel"></md-text-button>
+                <md-filled-button id="confirm-uninstall" data-i18n="functional_button_confirm"></md-filled-button>
             </div>
         </md-dialog>
     </div>

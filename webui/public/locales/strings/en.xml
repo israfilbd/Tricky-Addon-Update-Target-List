@@ -6,7 +6,6 @@
     <string name="header_title">Tricky Addon</string>
     <!-- Help Menu-->
     <string name="help_help_instructions">Instructions</string>
-    <string name="help_save_and_update">Save</string>
     <string name="help_save_and_update_description">Save current configure to target.txt.</string>
     <string name="help_refresh">Refresh</string>
     <string name="help_refresh_description">Refresh app list and exclude list.</string>
@@ -35,9 +34,11 @@
     <!-- Search -->
     <string name="search_bar_search_placeholder">Search</string>
     <!-- Functional Button -->
-    <string name="functional_button_save_and_update_button">Save</string>
+    <string name="functional_button_save">Save</string>
     <string name="functional_button_uninstall_webui">Uninstall WebUI</string>
     <string name="functional_button_close">Close</string>
+    <string name="functional_button_cancel">Cancel</string>
+    <string name="functional_button_confirm">Confirm</string>
     <!-- Loading -->
     <string name="loading_loading">Loading...</string>
     <!-- Menu -->
@@ -61,7 +62,6 @@
     <!-- Boot Hash -->
     <string name="boot_hash_title">Boot Hash</string>
     <string name="boot_hash_input_placeholder">Paste your verified Boot Hash here</string>
-    <string name="boot_hash_save_button">Save</string>
     <!-- About -->
     <string name="about_module_name_line1">Tricky Addon</string>
     <string name="about_module_name_line2">Update Target List</string>
@@ -104,7 +104,6 @@
     <string name="security_patch_advanced_mode">Advanced</string>
     <string name="security_patch_get_date">Get Security Patch Date</string>
     <string name="security_patch_auto">Auto</string>
-    <string name="security_patch_save">Save</string>
     <string name="security_patch_fetching">Fetching...</string>
     <string name="security_patch_fetched">Done</string>
     <string name="security_patch_get_failed">Failed to fetch security patch date</string>
@@ -125,8 +124,6 @@
     <!-- Uninstall confirmation -->
     <string name="confirmation_uninstall_title">Confirm Uninstall?</string>
     <string name="confirmation_uninstall_message">Are you sure you want to uninstall Tricky Addon</string>
-    <string name="confirmation_uninstall_cancel">Cancel</string>
-    <string name="confirmation_uninstall_confirm">Confirm</string>
     <!-- Mode dialog -->
     <string name="mode_dialog_title">Mode</string>
     <string name="mode_auto">Auto</string>
