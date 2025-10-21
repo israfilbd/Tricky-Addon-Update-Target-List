@@ -37,6 +37,11 @@
     pointer-events: none;
 }
 
+[dir="rtl"] .search-input {
+    left: unset;
+    right: 10px;
+}
+
 .search-input.show {
     width: calc(100% - 64px);
     opacity: 1;

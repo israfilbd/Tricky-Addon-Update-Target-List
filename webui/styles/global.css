@@ -32,6 +32,11 @@ body[unresolved] {
     --md-fab-label-text-color: var(--md-sys-color-on-primary-container);
 }
 
+[dir="rtl"] .floating-btn {
+    right: unset;
+    left: 16px;
+}
+
 .floating-btn.hide {
     transform: translateY(200%);
 }
