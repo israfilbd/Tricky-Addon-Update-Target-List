@@ -8,6 +8,15 @@ GitHub release: [Tricky Addon: Update Target List](https://github.com/KOWX712/Tr
 Telegram channel: [KOW's Little World](https://t.me/kowchannel)
 
 ## Changelog
+
+### v4.2
+- **WebUI:** New UI with [Material Web Component](https://material-web.dev) and some various improvements.
+- **WebUI:** Fixed missing security patch option in newer version of [beakthoven/TrickyStoreOSS](https://github.com/beakthoven/TrickyStoreOSS).
+- **WebUI:** Fixed broken devconfig.toml value reading when using [qwq233/TrickyStore](https://github.com/qwq233/TrickyStore).
+- **WebUI:** Added Vietnamese translation (@doanvtamhuynh, #96).
+- **WebUI:** Updated many [tranlation](https://crowdin.com/project/TA_utl) [ff3e2e4](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/commit/ff3e2e4cd3ba6e40277c0c8def016e764673c262).
+- No longer ship full openssl binary.
+
 ### v4.1
 - **WebUI:** Added right-to-left language support in UI.
 - **WebUI:** Fixed 'Failed to fetch applist' in certain condition.
