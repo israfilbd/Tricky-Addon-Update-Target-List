@@ -1,6 +1,6 @@
 import { wrapInputStream } from 'webuix';
 import { exec, spawn, toast, listPackages, getPackagesInfo, getPackagesIcon } from 'kernelsu-alt';
-import { basePath, loadingIndicator, appsWithExclamation, appsWithQuestion } from './main.js';
+import { basePath, loadingIndicator, appsWithExclamation, appsWithQuestion, checkSukiSu } from './main.js';
 
 const appTemplate = document.getElementById('app-template').content;
 export const appListContainer = document.getElementById('apps-list');
@@ -153,6 +153,7 @@ function renderAppList(data) {
             toggleableCheckbox();
             setupModeMenu();
             updateCheckboxColor();
+            checkSukiSu();
             if (showIcon) setupIconIntersectionObserver();
             return;
         }

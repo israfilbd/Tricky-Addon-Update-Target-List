@@ -109,6 +109,97 @@ function checkMagisk() {
         });
 }
 
+// Try use sukisu card alpha
+export function checkSukiSu() {
+    exec('echo $TMPDIR').then((tmpdir) => {
+        if (tmpdir.errno === 0 && tmpdir.stdout.includes('com.sukisu.ultra')) {
+            // try read sukisu shared preference
+            exec('cat /data/data/com.sukisu.ultra/shared_prefs/card_settings.xml').then((result) => {
+                if (result.errno === 0) {
+                    try {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(result.stdout, 'text/xml');
+                        const floatAlpha = doc.querySelector('float[name="card_alpha"]');
+                        const floatDim = doc.querySelector('float[name="card_dim"]');
+                        if ((floatAlpha && floatAlpha.getAttribute('value')) && (floatDim && floatDim.getAttribute('value'))) {
+                            const alphaValue = parseFloat(floatAlpha.getAttribute('value'));
+                            const dimValue = parseFloat(floatDim.getAttribute('value'));
+                            if (!isNaN(alphaValue) && !isNaN(dimValue)) {
+                                const alpha = Math.round(alphaValue * 100) / 100;
+                                const dim = Math.round(dimValue * 100) / 100;
+                                document.querySelectorAll('.card-alpha').forEach(el => {
+                                    const computed = window.getComputedStyle(el);
+                                    let bg = computed.backgroundColor || el.style.backgroundColor || '';
+                                    const hsla = hexOrRgbToHsla(bg, alpha, dim);
+                                    if (hsla) el.style.backgroundColor = hsla;
+                                });
+                            }
+                        }
+                    } catch (e) {}
+                }
+            });
+        }
+    });
+}
+
+function hexOrRgbToHsla(input, alpha, dim) {
+    if (!input) return null;
+    input = input.trim();
+    let r, g, b;
+
+    // rgb format
+    const rgbaMatch = input.match(/rgba?\(([^)]+)\)/i);
+    if (rgbaMatch) {
+        const parts = rgbaMatch[1].split(',').map(p => parseInt(p.trim()) || 0);
+        [r, g, b] = parts;
+    }
+    // hex format
+    else {
+        const hex = input.replace('#', '');
+        const hexLen = hex.length;
+        if (hexLen === 3 || hexLen === 6 || hexLen === 8) {
+            const expanded = hexLen === 3 ? hex.replace(/./g, '$&$&') : hex;
+            r = parseInt(expanded.slice(0, 2), 16) || 0;
+            g = parseInt(expanded.slice(2, 4), 16) || 0;
+            b = parseInt(expanded.slice(4, 6), 16) || 0;
+        } else {
+            return null;
+        }
+    }
+
+    // Convert RGB to HSL
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+
+    if (max === min) {
+        h = s = 0;
+    } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+
+    // Apply dimness by reducing lightness
+    const dimFactor = dim / 100;
+    l = l * (1 - dimFactor);
+    h = Math.round(h * 360);
+    s = Math.round(s * 100);
+    l = Math.round(l * 100);
+
+    return `hsla(${h}, ${s}%, ${l}%, ${alpha})`;
+}
+
 // Function to show the prompt with a success or error message
 export function showPrompt(key, isSuccess = true, duration = 3000) {
     prompt.textContent = translations[key];
