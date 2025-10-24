@@ -170,7 +170,7 @@ export async function openFileSelector(type) {
         fileList.addEventListener('click', (event) => {
             const item = event.target.closest('.file-item');
             if (item && item.querySelector('span').textContent.endsWith('.' + fileType)) {
-                exec(`cat ${currentPath}/${item.querySelector('span').textContent}`)
+                exec(`cat "${currentPath}/${item.querySelector('span').textContent}"`)
                     .then(({ errno, stdout, stderr }) => {
                         errno === 0 ? resolve(stdout) : reject(stderr);
                         fileSelectorDialog.close();
