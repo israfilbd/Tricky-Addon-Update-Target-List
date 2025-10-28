@@ -73,6 +73,9 @@ update_locales() {
     download "$link" > "$MODPATH/tmp/locales.zip"
     [ -s "$MODPATH/tmp/locales.zip" ] || error=1
     unzip -o "$MODPATH/tmp/locales.zip" -d "$MODDIR/webui/locales" || error=1
+    if [ -d "/data/adb/modules_update/TA_utl" ]; then
+        unzip -o "$MODPATH/tmp/locales.zip" -d "/data/adb/modules_update/TA_utl/webui/locales" || error=1
+    fi
     rm -f "$MODPATH/tmp/locales.zip"
     [ "$error" -eq 0 ] || exit 1
 }
@@ -111,6 +114,7 @@ install_update() {
             ;;
     esac
 
+    update_locales || true
     rm -f "$zip_file" "$MODPATH/tmp/changelog.md" "$MODPATH/tmp/version" || true
 }
 
