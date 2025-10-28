@@ -185,11 +185,13 @@
 
         <!-- About Dialog -->
         <md-dialog id="about-dialog">
+            <div slot="headline" class="about-headline">
+                <div id="module_name_line1" data-i18n="about_module_name_line1"></div>
+                <div id="module_name_line2" data-i18n="about_module_name_line2"></div>
+                <div id="module-version"></div>
+                <div id="author"><span id="authored" data-i18n="about_by"></span> KOWX712</div>
+            </div>
             <div slot="content">
-                <span id="module_name_line1" data-i18n="about_module_name_line1"></span><br>
-                <span id="module_name_line2" data-i18n="about_module_name_line2"></span><br>
-                <span id="module-version"></span><br>
-                <span id="authored" data-i18n="about_by"></span> KOWX712
                 <div id="disclaimer" data-i18n="about_disclaimer"></div>
                 <div class="link">
                     <md-filled-button id="telegram">
