@@ -206,11 +206,16 @@ export function showPrompt(key, isSuccess = true, duration = 3000) {
     prompt.textContent = translations[key];
     prompt.classList.toggle('error', !isSuccess);
     prompt.classList.add('show');
+    const container = document.querySelector('.prompt-container');
+    try {
+        if (container && !container.matches(':popover-open')) container.showPopover();
+    } catch (e) {}
     if (window.promptTimeout) {
         clearTimeout(window.promptTimeout);
     }
     window.promptTimeout = setTimeout(() => {
         prompt.classList.remove('show');
+        try { if (container && container.matches(':popover-open')) container.hidePopover(); } catch (e) {}
     }, duration);
 }
 

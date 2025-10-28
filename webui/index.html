@@ -65,7 +65,7 @@
     <div class="loading" data-i18n="loading_loading"></div>
 
     <!-- Prompt Element -->
-    <div class="prompt-container">
+    <div class="prompt-container" popover="manual">
         <span class="prompt" id="prompt"></span>
     </div>
 
@@ -94,8 +94,9 @@
         </div>
     </template>
 
-    <!-- Mode selection dialog (opened on long-press) -->
+    <!-- Dialog -->
     <div class="dialog-wrapper">
+        <!-- Mode selection dialog (opened on long-press) -->
         <md-dialog id="mode-dialog">
             <div slot="headline" data-i18n="mode_dialog_title"></div>
             <div slot="content" class="mode-dialog-content">
@@ -119,10 +120,8 @@
                 <md-text-button id="mode-cancel" data-i18n="functional_button_cancel"></md-text-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- Help Dialog -->
-    <div class="dialog-wrapper">
+        <!-- Help Dialog -->
         <md-dialog id="help-dialog">
             <div slot="headline" data-i18n="help_help_instructions"></div>
             <div slot="content" class="help-content">
@@ -171,10 +170,8 @@
                 <md-text-button id="close-help" data-i18n="functional_button_close"></md-text-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- BootHash Input Dialog -->
-    <div class="dialog-wrapper">
+        <!-- BootHash Input Dialog -->
         <md-dialog id="boot-hash-dialog" class="text-field-dialog">
             <div slot="headline" data-i18n="boot_hash_title"></div>
             <div slot="content">
@@ -185,10 +182,8 @@
                 <md-filled-button id="boot-hash-save-button" data-i18n="functional_button_save"></md-filled-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- About Dialog -->
-    <div class="dialog-wrapper">
+        <!-- About Dialog -->
         <md-dialog id="about-dialog">
             <div slot="content">
                 <span id="module_name_line1" data-i18n="about_module_name_line1"></span><br>
@@ -224,10 +219,8 @@
                 <md-text-button id="close-about" data-i18n="functional_button_close"></md-text-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- Update Dialog -->
-    <div class="dialog-wrapper">
+        <!-- Update Dialog -->
         <md-dialog id="update-dialog" class="update-dialog">
             <div slot="headline" data-i18n="update_changelog"></div>
             <div slot="content" class="changelog"></div>
@@ -237,10 +230,8 @@
                 <md-filled-button class="reboot" data-i18n="update_reboot"></md-filled-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- File Selector Dialog -->
-    <div class="dialog-wrapper">
+        <!-- File Selector Dialog -->
         <md-dialog id="file-selector-dialog">
             <div slot="headline" class="file-selector-header">
                 <md-icon-button class="back-button">
@@ -255,10 +246,8 @@
                 <md-text-button class="close-selector" data-i18n="functional_button_cancel"></md-text-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- Security Patch Dialog -->
-    <div class="dialog-wrapper">
+        <!-- Security Patch Dialog -->
         <md-dialog id="security-patch-dialog" class="text-field-dialog">
             <div slot="headline" data-i18n="security_patch_title"></div>
             <div slot="content">
@@ -303,10 +292,8 @@
                 <md-filled-button id="save-patch" data-i18n="functional_button_save"></md-filled-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- Add System App Dialog -->
-    <div class="dialog-wrapper">
+        <!-- Add System App Dialog -->
         <md-dialog id="add-system-app-dialog" class="text-field-dialog">
             <div slot="headline" data-i18n="add_system_app_title"></div>
             <div slot="content">
@@ -319,10 +306,8 @@
                 <md-filled-button id="add-system-app-button" data-i18n="add_system_app_add"></md-filled-button>
             </div>
         </md-dialog>
-    </div>
 
-    <!-- Uninstall Confirmation Dialog -->
-    <div class="dialog-wrapper">
+        <!-- Uninstall Confirmation Dialog -->
         <md-dialog id="uninstall-confirmation-dialog" type="alert">
             <div slot="headline" data-i18n="confirmation_uninstall_title"></div>
             <md-icon slot="icon">delete</md-icon>
