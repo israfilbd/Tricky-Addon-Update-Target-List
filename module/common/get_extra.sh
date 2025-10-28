@@ -67,6 +67,16 @@ check_update() {
     fi
 }
 
+update_locales() {
+    link="https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales.zip"
+    error=0
+    download "$link" > "$MODPATH/tmp/locales.zip"
+    [ -s "$MODPATH/tmp/locales.zip" ] || error=1
+    unzip -o "$MODPATH/tmp/locales.zip" -d "$MODDIR/webui/locales" || error=1
+    rm -f "$MODPATH/tmp/locales.zip"
+    [ "$error" -eq 0 ] || exit 1
+}
+
 uninstall() {
     if [ "$MAGISK" = "true" ]; then
         cp -rf "$MODPATH/update" "/data/adb/modules/TA_utl"
@@ -258,6 +268,10 @@ case "$1" in
 --check-update)
     REMOTE_VERSION="$2"
     check_update
+    exit
+    ;;
+--update-locales)
+    update_locales
     exit
     ;;
 --uninstall)

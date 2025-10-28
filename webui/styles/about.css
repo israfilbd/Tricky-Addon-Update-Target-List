@@ -61,3 +61,8 @@
     --md-sys-color-primary: #821284;
     --md-sys-color-on-primary: white;
 }
+
+#locales {
+    --md-sys-color-primary: #4285F4;
+    --md-sys-color-on-primary: white;
+}

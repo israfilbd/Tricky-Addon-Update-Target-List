@@ -68,6 +68,7 @@
     <string name="about_by">by</string>
     <string name="about_telegram_channel">Telegram Channel</string>
     <string name="about_canary_update">Update to latest canary version</string>
+    <string name="about_translation_update">Update translation bundle</string>
     <string name="about_disclaimer">This module is not a part of the Tricky Store module. DO NOT report any issues to Tricky Store if encountered.</string>
     <string name="about_acknowledgment">Acknowledgment</string>
     <!-- Prompt -->
@@ -94,6 +95,8 @@
     <string name="prompt_install_fail">Fail to install, please update manually</string>
     <string name="prompt_rebooting">Rebooting...</string>
     <string name="prompt_reboot_fail">Fail to reboot, please reboot manually</string>
+    <string name="prompt_translation_updated">Translation bundle updated successfully</string>
+    <string name="prompt_translation_update_failed">Failed to update translation bundle</string>
     <string name="prompt_custom_key_set">Custom keybox set successfully</string>
     <string name="prompt_custom_key_set_error">Failed to set custom keybox</string>
     <string name="prompt_no_file_selected">No file selected</string>

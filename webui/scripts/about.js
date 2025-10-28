@@ -26,6 +26,7 @@ document.getElementById('canary').onclick = () => {
     if (isDownloading) return;
     isDownloading = true;
 
+    aboutDialog.close();
     showPrompt("prompt_checking_update", true, 10000);
     let htmlContent = '';
     const link = "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build/main?preview"
@@ -63,6 +64,48 @@ document.getElementById('canary').onclick = () => {
             isDownloading = false;
         }
     });
+}
+
+// Update translation bundle
+document.getElementById('locales').onclick = () => {
+    if (isDownloading) return;
+    isDownloading = true;
+
+    aboutDialog.close();
+    showPrompt("prompt_checking_update", true, 10000);
+    fetch("https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales_version")
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.text();
+        })
+        .catch(async () => {
+            return fetch("https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales_version")
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response.text()
+                });
+        })
+        .then(async (version) => {
+            const remote_version = version.trim();
+            const local_version = await fetch('locales/version').then(response => response.text()).then(text => text.trim());
+
+            if (Number(remote_version) <= Number(local_version)) {
+                showPrompt("prompt_no_update");
+                isDownloading = false;
+            } else {
+                showPrompt("prompt_downloading", true, 20000);
+                const result = spawn('sh', [`${basePath}/common/get_extra.sh`, '--update-locales']);
+                result.on('exit', (code) => {
+                    isDownloading = false;
+                    showPrompt(code === 0 ? "prompt_translation_updated" : "prompt_translation_update_failed", code === 0);
+                    if (code === 0) window.location.reload();
+                });
+            }
+        })
+        .catch(error => {
+            showPrompt("prompt_translation_update_failed", false);
+            isDownloading = false;
+        });
 }
 
 /**
