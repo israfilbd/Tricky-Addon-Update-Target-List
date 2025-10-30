@@ -43,7 +43,7 @@ export async function updateCheck() {
     try {
         const response = await fetch("https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/update.json")
             .catch(async () => {
-                return fetch("https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/main/update.json");
+                return fetch("https://hub.gitmirror.com/raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/update.json");
             });
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         connection = true;

@@ -79,7 +79,7 @@ document.getElementById('locales').onclick = () => {
             return response.text();
         })
         .catch(async () => {
-            return fetch("https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales_version")
+            return fetch("https://hub.gitmirror.com/raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales_version")
                 .then(response => {
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                     return response.text()

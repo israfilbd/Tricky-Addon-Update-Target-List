@@ -47,7 +47,7 @@ document.getElementById("deselect-unnecessary").onclick = async () => {
                 return response.json();
             })
             .catch(async () => {
-                return fetch("https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/main/more-exclude.json")
+                return fetch("https://hub.gitmirror.com/raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/more-exclude.json")
                     .then(response => {
                         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                         return response.json();
@@ -238,7 +238,7 @@ document.getElementById("devicekb").onclick = async () => {
 document.getElementById("validkb").onclick = () => {
     fetchkb(
         "https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/.extra",
-        "https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/main/.extra"
+        "https://hub.gitmirror.com/raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/main/.extra"
     )
 }
 
