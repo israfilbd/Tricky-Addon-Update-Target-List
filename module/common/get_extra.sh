@@ -68,9 +68,10 @@ check_update() {
 }
 
 update_locales() {
-    link="https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales.zip"
+    link1="https://raw.githubusercontent.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales.zip"
+    link2="https://raw.gitmirror.com/KOWX712/Tricky-Addon-Update-Target-List/bot/locales.zip"
     error=0
-    download "$link" > "$MODPATH/tmp/locales.zip"
+    download "$link1" > "$MODPATH/tmp/locales.zip" || download "$link2" > "$MODPATH/tmp/locales.zip"
     [ -s "$MODPATH/tmp/locales.zip" ] || error=1
     unzip -o "$MODPATH/tmp/locales.zip" -d "$MODDIR/webui/locales" || error=1
     if [ -d "/data/adb/modules_update/TA_utl" ]; then
