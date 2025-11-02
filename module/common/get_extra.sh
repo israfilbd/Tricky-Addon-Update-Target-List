@@ -140,6 +140,8 @@ set_security_patch() {
         [ -f "/data/adb/pif.prop" ] && PIF="/data/adb/pif.prop"
     elif [ -f "/data/adb/modules/playintegrityfix/custom.pif.json" ]; then
         PIF="/data/adb/modules/playintegrityfix/custom.pif.json"
+    elif [ -f "/data/adb/modules/playintegrityfix/custom.pif.prop" ]; then
+        PIF="/data/adb/modules/playintegrityfix/custom.pif.prop"
     fi
 
     if [ -n "$PIF" ]; then
