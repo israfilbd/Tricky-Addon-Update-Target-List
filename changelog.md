@@ -9,6 +9,14 @@ Telegram channel: [KOW's Little World](https://t.me/kowchannel)
 
 ## Changelog
 
+### v4.3
+- **WebUI:** UI improvement: optimized dialog animation and menu appearence.
+- **WebUI:** Fixed fallback link not working, fixed no internet connection in some condition.
+- **WebUI:** Implemented translation hot update feature, allow pulling transation from crowdin branch and apply without reboot. Translation in repo will sync with Crowdin on every Sunday.
+- **WebUI:** Fixed fail to apply custom keybox on some path.
+- **Script:** Added auto security patch support for custom.pif.prop
+- **Script:** Added sensitive props handling from shamiko.
+
 ### v4.2
 - **WebUI:** New UI with [Material Web Component](https://material-web.dev) and some various improvements.
 - **WebUI:** Fixed missing security patch option in newer version of [beakthoven/TrickyStoreOSS](https://github.com/beakthoven/TrickyStoreOSS).
