@@ -82,12 +82,26 @@ update_locales() {
 }
 
 uninstall() {
-    if [ "$MAGISK" = "true" ]; then
-        cp -rf "$MODPATH/update" "/data/adb/modules/TA_utl"
-    else
-        cp -f "$MODPATH/update/module.prop" "/data/adb/modules/TA_utl/module.prop"
-    fi
-    touch "/data/adb/modules/TA_utl/remove"
+    . "$MODPATH/manager.sh"
+
+    case $MANAGER in
+        APATCH)
+            cp -f "$MODPATH/update/module.prop" "$MODPATH/module.prop"
+            apd module uninstall TA_utl || touch "$MODPATH/remove"
+            ;;
+        KSU)
+            cp -f "$MODPATH/update/module.prop" "$MODPATH/module.prop"
+            ksud module uninstall TA_utl || touch "$MODPATH/remove"
+            ;;
+        MAGISK)
+            cp -rf "$MODPATH/update" "/data/adb/modules/TA_utl"
+            magisk --remove-module -n TA_utl || touch "/data/adb/modules/TA_utl/remove"
+            ;;
+        *)
+            touch "/data/adb/modules/TA_utl/remove"
+            exit 1
+            ;;
+    esac
 }
 
 get_update() {
