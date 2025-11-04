@@ -23,16 +23,6 @@ empty_reset_prop() {
 
 resetprop -w sys.boot_completed 0
 
-# Reset vbmeta related prop
-if [ -f "/data/adb/boot_hash" ]; then
-    hash_value=$(grep -v '^#' "/data/adb/boot_hash" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
-    [ -z "$hash_value" ] && rm -f /data/adb/boot_hash || resetprop -n ro.boot.vbmeta.digest "$hash_value"
-fi
-empty_reset_prop "ro.boot.vbmeta.invalidate_on_error" "yes"
-empty_reset_prop "ro.boot.vbmeta.avb_version" "1.0"
-empty_reset_prop "ro.boot.vbmeta.hash_alg" "sha256"
-empty_reset_prop "ro.boot.vbmeta.size" "4096"
-
 check_reset_prop "ro.boot.vbmeta.device_state" "locked"
 check_reset_prop "ro.boot.verifiedbootstate" "green"
 check_reset_prop "ro.boot.flash.locked" "1"
@@ -62,3 +52,14 @@ check_reset_prop "ro.boot.realme.lockstate" "1"
 contains_reset_prop "ro.bootmode" "recovery" "unknown"
 contains_reset_prop "ro.boot.bootmode" "recovery" "unknown"
 contains_reset_prop "vendor.boot.bootmode" "recovery" "unknown"
+
+# Reset vbmeta related prop
+if [ -f "/data/adb/boot_hash" ]; then
+    hash_value=$(grep -v '^#' "/data/adb/boot_hash" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')
+    [ -z "$hash_value" ] && rm -f /data/adb/boot_hash || resetprop -n ro.boot.vbmeta.digest "$hash_value"
+fi
+empty_reset_prop "ro.boot.vbmeta.device_state" "locked"
+empty_reset_prop "ro.boot.vbmeta.invalidate_on_error" "yes"
+empty_reset_prop "ro.boot.vbmeta.avb_version" "1.0"
+empty_reset_prop "ro.boot.vbmeta.hash_alg" "sha256"
+empty_reset_prop "ro.boot.vbmeta.size" "4096"
