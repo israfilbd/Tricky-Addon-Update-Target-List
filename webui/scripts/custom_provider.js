@@ -73,7 +73,7 @@ async function fetchCustomKeybox(link, script) {
 
         const response = await fetch(link);
         if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+            throw new Error(getString("prompt_custom_fetch_error") + `: ${response.status}`);
         }
 
         const data = await response.text();
@@ -85,16 +85,19 @@ CUSTOMKB_EOF`,
             { cwd: "/data/local/tmp" }
         );
 
-        if (errno !== 0 || !stdout.trim()) {
-            showPrompt(getString("prompt_custom_fetch_error"), false);
-            return;
+        if (errno !== 0) {
+            throw new Error(getString("prompt_custom_fetch_error"));
+        }
+
+        if (!stdout.trim()) {
+            throw new Error(getString("prompt_custom_not_found"));
         }
 
         const result = await setKeybox(stdout);
         showPrompt(getString(result ? "prompt_custom_key_set" : "prompt_key_set_error"), result);
     } catch (error) {
-        console.error("Custom keybox fetch error:", error);
-        showPrompt(getString("prompt_custom_fetch_error"), false);
+        console.error(error.message);
+        showPrompt(error.message, false);
     }
 }
 

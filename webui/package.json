@@ -16,7 +16,7 @@
     "@material/web": "^2.4.1",
     "asn1js": "^3.0.10",
     "kernelsu-alt": "^3.1.1",
-    "marked": "^18.0.2",
+    "marked": "^18.0.3",
     "pkijs": "^3.4.0",
     "webuix": "^0.0.18"
   },
