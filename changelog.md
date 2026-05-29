@@ -9,9 +9,6 @@ Telegram channel: [KOW's Little World](https://t.me/kowchannel)
 
 ## Changelog
 
-## v5.0-beta.1
-- Check in [release notes](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/tag/v5.0-beta.1).
-
 ### v4.3
 - **WebUI:** UI improvement: optimized dialog animation and menu appearence.
 - **WebUI:** Fixed fallback link not working, fixed no internet connection in some condition.
@@ -164,15 +161,6 @@ Telegram channel: [KOW's Little World](https://t.me/kowchannel)
 - **Initial support for multiple languages**
 - Language available: **en-US**, **ru-RU**, **tl-PH**, **zh-CN**, **zh-TW**
 - Add language or fix translation error? [Read here](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/tree/master/module/webui/locales/A-translate.md).
-
-### v2.6-beta.3
-- Check in [release notes](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/tag/v2.6-beta.3).
-
-### v2.6-beta.2
-- Check in [release notes](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/tag/v2.6-beta.2).
-
-### v2.6-beta.1
-- Check in [release notes](https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/tag/v2.6-beta.1).
 
 ### v2.5
 - Remove kb prompt on installation, moved into WebUI
