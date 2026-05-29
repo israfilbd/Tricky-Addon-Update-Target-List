@@ -43,13 +43,13 @@ if [ "$MANAGER" = "MAGISK" ]; then
         cp -af "$MODPATH/." "$HIDE_DIR/"
     fi
     MODPATH="$HIDE_DIR"
-    [ -f "$MODPATH/action.sh" ] && mv -f "$MODPATH/action.sh" "$MODPATH/action.sh.old"
+    [ -f "$MODPATH/action.sh.old" ] && mv -f "$MODPATH/action.sh.old" "$MODPATH/action.sh"
 
     # Add target from denylist
     # To trigger this, choose "Select from DenyList" in WebUI once
     [ -f "/data/adb/tricky_store/target_from_denylist" ] && add_denylist_to_target
 else
-    [ -f "$MODPATH/action.sh.old" ] && mv -f "$MODPATH/action.sh.old" "$MODPATH/action.sh"
+    [ -f "$MODPATH/action.sh" ] && mv -f "$MODPATH/action.sh" "$MODPATH/action.sh.old"
     [ -d "$HIDE_DIR" ] && rm -rf "$HIDE_DIR"
 fi
 
