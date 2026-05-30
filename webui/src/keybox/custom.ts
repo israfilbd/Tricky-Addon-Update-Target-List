@@ -1,4 +1,4 @@
-import type { MdDialog, MdOutlinedTextField, MdTextButton } from '@material/web/all'
+import type { MdDialog, MdFilledTonalIconButton, MdOutlinedTextField, MdTextButton } from '@material/web/all'
 import type { Keybox } from './keybox'
 import { i18n } from '../i18n'
 import { File } from '../file'
@@ -50,8 +50,8 @@ export class CustomKeyboxProvider {
     dialog.querySelector<MdTextButton>('#save-customkb')!.onclick = this.#saveEntry.bind(this)
     dialog.querySelector<MdTextButton>('#reset-customkb')!.onclick = () => this.#showRemoveDialog(true)
     dialog.querySelector<MdTextButton>('#remove-customkb')!.onclick = () => this.#showRemoveDialog(false, this.#currentEditName)
-    dialog.querySelector<MdTextButton>('#customkb-import')!.onclick = this.#importConfig.bind(this)
-    dialog.querySelector<MdTextButton>('#customkb-export')!.onclick = this.#exportConfig.bind(this)
+    dialog.querySelector<MdFilledTonalIconButton>('#customkb-import')!.onclick = this.#importConfig.bind(this)
+    dialog.querySelector<MdFilledTonalIconButton>('#customkb-export')!.onclick = this.#exportConfig.bind(this)
 
     removeDialog.querySelector<MdTextButton>('#cancel-remove-customkb')!.onclick = () => {
       removeDialog.close()
@@ -255,6 +255,8 @@ export class CustomKeyboxProvider {
   }
 
   async #exportConfig(): Promise<void> {
+    const dialog = document.getElementById('customkb-dialog') as MdDialog | null
+    dialog?.close()
     const entries = this.#getEntries()
     if (entries.length === 0) {
       this.#snackbar.show(i18n.t('customkb_export_empty'), false)

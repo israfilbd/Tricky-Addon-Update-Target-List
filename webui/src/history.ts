@@ -23,6 +23,21 @@ export class History {
   #activeKeys: string[] = []
   /** Map of key → onBack callback */
   #entries = new Map<string, () => void>()
+  /**
+   * Counter of pending consume()->back() navigations.
+   *
+   * window.history.back() is async — it queues a popstate task rather than
+   * firing it synchronously. If a new dialog opens (and pushes its own
+   * history state) between the consume() call and the resulting popstate,
+   * #onPopState would see a state mismatch and incorrectly close the
+   * newer dialog.
+   *
+   * Incremented before each consume()->back(), decremented when the
+   * corresponding popstate fires. While >0, popstate is a cleanup
+   * from consume() (the key was already removed from tracking) and
+   * should not touch entries pushed after the consume.
+   */
+  #pendingCleanupCount = 0
 
   #boundPopState: (event: PopStateEvent) => void
 
@@ -61,6 +76,7 @@ export class History {
 
     this.#activeKeys = this.#activeKeys.filter(k => k !== key)
     this.#entries.delete(key)
+    this.#pendingCleanupCount++
     window.history.back()
     return true
   }
@@ -81,6 +97,14 @@ export class History {
    * to determine which entries were popped by back/forward navigation.
    */
   #onPopState(event: PopStateEvent): void {
+    // popstate triggered by consume()'s window.history.back() — the key
+    // was already removed from tracking, and this event must NOT touch
+    // entries that were pushed after consume() was called.
+    if (this.#pendingCleanupCount > 0) {
+      this.#pendingCleanupCount--
+      return
+    }
+
     const currentKey = event.state?.key as string | undefined
 
     while (this.#activeKeys.length > 0) {
