@@ -5,5 +5,6 @@ export default defineConfig({
   build: {
     outDir: '../module/webui',
     emptyOutDir: true,
+    cssCodeSplit: false,
   },
 })
